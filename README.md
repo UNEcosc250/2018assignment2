@@ -139,7 +139,7 @@ Functionality:
 * Regenesis works: 1 
 * Action replay works: 1
 
-Quality: 50%
+Quality: 
 
 * Boid uses functional rather than imperative code: 3
 * Overall quality judgment (readable, tidy, concise): 5
