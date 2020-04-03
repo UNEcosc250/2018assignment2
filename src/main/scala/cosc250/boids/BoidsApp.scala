@@ -79,7 +79,7 @@ object BoidsApp {
 
     container.add(controlsContainer, BorderLayout.EAST)
 
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+    window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     window.add(container)
     window.setSize(container.getPreferredSize)
     window.setVisible(true)

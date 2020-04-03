@@ -30,4 +30,9 @@ lift_example
 vagrant/.bashrc
 vagrant/sbt-launch.jar
 
+# Metals
+.metals/
+.bloop/
+metals.sbt
+
 tmp
