@@ -102,9 +102,9 @@ Partially implemented, you have:
   again from there.
   
 * The **wind** buttons should set the wind strength and direction. As the
-  wind is the medium the boids are flying in, we add the wind force *after*
-  we've limited the boid's velocity. So it is possible to fly faster downwind
-  than up.
+  boids' velocity is normalised on the next tick, in practice this works as a
+  fairly effective flock steering mechanism. If you set the wind blowing right, 
+  you should see the flock sweep around to follow the wind.
   
 * The **Startle boids** button should cause the simulation, at the next time
   step, to perturb each boid by a velocity of `startleStrength` in a random 
