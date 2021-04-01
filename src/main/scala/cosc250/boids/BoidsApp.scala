@@ -7,6 +7,9 @@ import javax.swing._
 import scala.collection.mutable
 import scala.util.Random
 
+/**
+ * You shouldn't edit this file
+ */
 object BoidsApp {
 
   /** The main window */
@@ -32,7 +35,11 @@ object BoidsApp {
 
   val regenesis = new JButton("Regenesis")
 
-  def main(args:Array[String]):Unit = {
+  val directionLabel = new JLabel("Flock direction: xx radians")
+  val separationLabel = new JLabel("Flock speed: xx")
+  val velocityLabel = new JLabel("Flock separation: xx")
+
+  @main def run = {
 
     val container = new JPanel()
     container.setLayout(new BorderLayout())
@@ -79,6 +86,15 @@ object BoidsApp {
 
     container.add(controlsContainer, BorderLayout.EAST)
 
+    val dataContainer = new JPanel()
+    dataContainer.setLayout(new GridLayout(1, 3))
+    dataContainer.add(directionLabel)
+    dataContainer.add(velocityLabel)
+    dataContainer.add(separationLabel)
+
+    container.add(dataContainer, BorderLayout.SOUTH)
+
+
     window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     window.add(container)
     window.setSize(container.getPreferredSize)
@@ -106,6 +122,11 @@ object BoidsApp {
 
     val timer = new Timer(16, (e) => {
       boidsPanel.setBoids(Simulation.update())
+      SwingUtilities.invokeLater(() =>
+        directionLabel.setText(s"Flock direction: ${Simulation.flockDir} radians")
+        directionLabel.setText(s"Flock speed: ${Simulation.flockSpeed} ")
+        directionLabel.setText(s"Flock separation: ${Simulation.flockSep}")
+      )
     })
     timer.start()
 

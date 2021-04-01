@@ -99,7 +99,8 @@ Partially implemented, you have:
 
 * The **Action Replay** button must take the simulation back to the start of 
   the memory buffer (typically one second) and let the simulation continue 
-  again from there.
+  again from there.  
+  Hint: think about which end you want to insert the frame.
   
 * The **wind** buttons should set the wind strength and direction. As the
   boids' velocity is normalised on the next tick, in practice this works as a
@@ -117,6 +118,20 @@ Partially implemented, you have:
 
 * Clicking a point on the canvas should add a new boid into the simulation, 
   heading in a random direction with a velocity of 1
+
+* There are also three labels at the foot of the simulation, which are intended to show some
+  data about the flock. (These are drawn from `Simulation.flockDir`, `Simulation.flockSpeed`, and `Simulation.flockSep`
+  which you'll need to implement.)
+
+  - Flock direction: The average direction of the flock. (Sum the velocity vectors and take its theta). You should be
+    able to see if this is working by seeing how it changes with the wind buttons
+
+  - Flock speed: The average speed of the flock. (Take the average of the magnitude of the velocity vectors). This should
+    stay more or less constant, because of how boids work
+
+  - Flock separation: The variance of the position of the flock. This one's a little trickier. Find the centroid of the flock
+    (average the position vectors). Then for each boid, calculate the square of its distance from the centroid. Return the 
+    mean of that. To test this, hit the "explosion of boids" button. It should drop to nearly zero and then grow.
 
 ## Note on the provided code
 
@@ -138,8 +153,8 @@ Functionality:
 * Startle works: 1
 * Regenesis works: 1 
 * Action replay works: 1
+* Mean direction, separation, and velocity works: 3 (1 each)
 
 Quality: 
 
-* Boid uses functional rather than imperative code: 3
-* Overall quality judgment (readable, tidy, concise): 5
+* Overall quality judgment (functional, readable, tidy, concise): 5

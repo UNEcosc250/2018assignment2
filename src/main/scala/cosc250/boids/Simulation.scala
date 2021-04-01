@@ -87,6 +87,29 @@ object Simulation {
   }
 
 
+  /** The current average direction of the flock. Add up all the boids' velocity vectors, and take the theta. */
+  def flockDir:Double = 
+    println("Warning, you haven't implemented flockDir!")
+    0d
 
+  /** The current average speed of the flock. Take the mean of all the boids' velocity magnitudes. */
+  def flockSpeed:Double = 
+    println("Warning, you haven't implemented flockSpeed!")
+    0d
+
+  /** 
+   * The variance of the flock's positions, ignoring the fact we wrap around the screen. 
+   * To get this one:
+   *   * Calculate the centroid of the flock (Add all the position vectors, and divide by the number of boids)
+   *   * Calculate the square of the distance of each boid from this centroid, and sum them. 
+   *      i.e., sum Math.pow((b.position - centroid).magnitude, 2)
+   *   * Divide this by the number of boids.
+   * 
+   * We'll probably eyeball the code for this one, given we're going to find it harder to eyeball whether the number
+   * on the screen looks right!
+   */ 
+  def flockSep:Double = 
+    println("Warning, you haven't implemented flockSep!")
+    0d
 
 }
