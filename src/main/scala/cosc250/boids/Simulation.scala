@@ -22,9 +22,8 @@ object Simulation {
   /** When the boids are startled, the strength of the vector that is applied to each of them */
   val startleStrength:Double = Boid.maxSpeed
 
-  val startleFunction:Boid => Vec2 = {
-    ???
-  }
+  /** A function that will "startle" a boid */
+  def startleFunction(b:Boid):Vec2 = ???
 
   /** A mutable queue containing the last `frameMemory frames` */
   val queue:mutable.Queue[Seq[Boid]] = mutable.Queue.empty[Seq[Boid]]
@@ -60,7 +59,8 @@ object Simulation {
   def current = ???
 
   /** Generates boids in the centre of the simulation, moving at v=1 in a random direction */
-  def explosionOfBoids(i:Int):Seq[Boid] = ???
+  def explosionOfBoids(i:Int):Seq[Boid] = 
+    ???
 
   /** Pushes a state into the queue */
   def pushState(boids:Seq[Boid]):Seq[Boid] = {
