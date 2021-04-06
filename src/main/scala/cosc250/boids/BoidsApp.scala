@@ -36,8 +36,8 @@ object BoidsApp {
   val regenesis = new JButton("Regenesis")
 
   val directionLabel = new JLabel("Flock direction: xx radians")
-  val separationLabel = new JLabel("Flock speed: xx")
-  val velocityLabel = new JLabel("Flock separation: xx")
+  val velocityLabel = new JLabel("Flock speed: xx")
+  val separationLabel = new JLabel("Flock separation: xx")
 
   @main def run = {
 
@@ -124,8 +124,8 @@ object BoidsApp {
       boidsPanel.setBoids(Simulation.update())
       SwingUtilities.invokeLater(() =>
         directionLabel.setText(s"Flock direction: ${Simulation.flockDir} radians")
-        directionLabel.setText(s"Flock speed: ${Simulation.flockSpeed} ")
-        directionLabel.setText(s"Flock separation: ${Simulation.flockSep}")
+        velocityLabel.setText(s"Flock speed: ${Simulation.flockSpeed} ")
+        separationLabel.setText(s"Flock separation: ${Simulation.flockSep}")
       )
     })
     timer.start()
