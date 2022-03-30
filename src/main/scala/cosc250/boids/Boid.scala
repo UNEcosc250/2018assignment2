@@ -95,10 +95,43 @@ object Boid {
   val neighBourDist = 50
 
   /** Wrap width of the simulation. ie, for any Boid, 0 <= x < 640 */
-  def maxX:Int = Simulation.width
+  def maxX:Int = SimulationController.width
 
   /** Wrap height of the simulation. ie, for any Boid, 0 <= y < 480 */
-  def maxY:Int = Simulation.height
+  def maxY:Int = SimulationController.height
+
+  /** When the boids are startled, the strength of the vector that is applied to each of them */
+  val startleStrength:Double = Boid.maxSpeed
+
+  /** A function that will "startle" a boid */
+  def startleFunction(b:Boid):Vec2 = ???
+
 }
 
+/*
+ * Defining these extension methods might make your work in the Boids algorithms cleaner.
+ */
+extension (boids:Seq[Boid]) {
 
+  /**
+    * Returns only those boids within d distance of position p
+    * align, separate, and cohesion all want to consider boids within a certain range.
+    */
+  def closeTo(p:Vec2, d:Double):Seq[Boid] =
+    ???
+
+  /**
+    * Calculates the centroid of a group of boids.
+    * Cohesion asks a boid to steer towards the centroid of the boids within a certain distance
+    */
+  def centroid:Vec2 =
+    ???
+
+  /**
+    * Calculates the average velocity vector (add them up and divide by the number in the group) of a group of boids
+    * Align asks a boid to steer so it will align more with its neighbours' average velocity vector
+    */
+  def averageVelocity:Vec2 =
+    ???
+
+}

@@ -23,9 +23,9 @@ class BoidsPanel extends JPanel {
   /** Contains the boids we will be rendering on the next render cycle */
   private var boids:Seq[Boid] = Seq.empty
 
-  override def getMinimumSize = new Dimension(Simulation.width, Simulation.height)
-  override def getPreferredSize = new Dimension(Simulation.width, Simulation.height)
-  override def getMaximumSize = new Dimension(Simulation.width, Simulation.height)
+  override def getMinimumSize = new Dimension(SimulationController.width, SimulationController.height)
+  override def getPreferredSize = new Dimension(SimulationController.width, SimulationController.height)
+  override def getMaximumSize = new Dimension(SimulationController.width, SimulationController.height)
 
   /** Paints our boids */
   override def paintComponent(gAwt:Graphics): Unit = {

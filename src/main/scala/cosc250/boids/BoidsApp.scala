@@ -60,17 +60,17 @@ object BoidsApp {
     windPanel.add(seWind)
     windPanel.setAlignmentX(0)
 
-    val windStrength = Simulation.windStrength
+    val windStrength = SimulationController.windStrength
 
-    nwWind.addActionListener((_) => Simulation.setWindDirection(Vec2.NW))
-    nWind.addActionListener((_) => Simulation.setWindDirection(Vec2.N))
-    neWind.addActionListener((_) => Simulation.setWindDirection(Vec2.NE))
-    wWind.addActionListener((_) => Simulation.setWindDirection(Vec2.W))
-    stopWind.addActionListener((_) => Simulation.wind=None)
-    eWind.addActionListener((_) => Simulation.setWindDirection(Vec2.E))
-    swWind.addActionListener((_) => Simulation.setWindDirection(Vec2.SW))
-    sWind.addActionListener((_) => Simulation.setWindDirection(Vec2.S))
-    seWind.addActionListener((_) => Simulation.setWindDirection(Vec2.SE))
+    nwWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.NW))
+    nWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.N))
+    neWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.NE))
+    wWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.W))
+    stopWind.addActionListener((_) => SimulationController.wind=None)
+    eWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.E))
+    swWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.SW))
+    sWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.S))
+    seWind.addActionListener((_) => SimulationController.setWindDirection(Vec2.SE))
 
     val wc = new JLabel("Wind controls")
     wc.setAlignmentX(0)
@@ -100,32 +100,31 @@ object BoidsApp {
     window.setSize(container.getPreferredSize)
     window.setVisible(true)
 
-    Simulation.pushState(Simulation.explosionOfBoids(Simulation.numBoids))
-
     replay.addActionListener({ (evt) =>
-      Simulation.resetQueue()
+      SimulationController.resetQueue()
     })
 
     startle.addActionListener({ (evt) =>
-      Simulation.oneTimeFunction = Some(Simulation.startleFunction)
+      SimulationController.oneTimeFunction = Some(Boid.startleFunction)
     })
 
     regenesis.addActionListener({ (evt) =>
-      Simulation.pushState(Simulation.explosionOfBoids(Simulation.numBoids))
+      SimulationController.pushFrame(SimulationFrame.explosionOfBoids(SimulationController.numBoids))
     })
 
     boidsPanel.addMouseListener(new MouseAdapter {
       override def mouseClicked(e: MouseEvent):Unit = {
-        Simulation.pushBoid(Boid(Vec2(e.getX, e.getY), Vec2.randomDir(1)))
+        SimulationController.pushBoid(Boid(Vec2(e.getX, e.getY), Vec2.randomDir(1)))
       }
     })
 
     val timer = new Timer(16, (e) => {
-      boidsPanel.setBoids(Simulation.update())
+      SimulationController.update()
+      boidsPanel.setBoids(SimulationController.current.boids)
       SwingUtilities.invokeLater(() =>
-        directionLabel.setText(s"Flock direction: ${Simulation.flockDir} radians")
-        velocityLabel.setText(s"Flock speed: ${Simulation.flockSpeed} ")
-        separationLabel.setText(s"Flock separation: ${Simulation.flockSep}")
+        directionLabel.setText(s"Flock direction: ${SimulationController.current.flockDir} radians")
+        velocityLabel.setText(s"Flock speed: ${SimulationController.current.flockSpeed} ")
+        separationLabel.setText(s"Flock separation: ${SimulationController.current.flockSep}")
       )
     })
     timer.start()

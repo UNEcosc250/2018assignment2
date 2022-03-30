@@ -1,17 +1,24 @@
-# Assignment 2: Mixing functional and imperative code
+# Assignment 2: Boids
 
-Previously, we've talked about how we can describe a changing system
-as a series of immutable states. We're going to do this to implement
-a simulation.
+In a pure functional language, such as Haskell, the code is a pure (no side-effects) description of a program which is
+then run in a runtime environment.
 
-This is going to cause you to write:
+As Scala is mixed paradigm, we sometimes find ourselves "pushing mutation to the edges", so that the core parts of your code
+can be pure. For instance, "effect types" (types that describe a program that has input and output effects) may have an 
+`unsafeRunSync` or `unsafeRunAsync` method which is not pure. You then have a pure program in most of the code, with a 
+single call to an `unsafeRun` method in the `main` method - the mutation has been pushed to the edges of the program.
 
-* Functional code for how you produce the next state from the current 
-  state
-* A small number of mutable structures using imperative code for remembering the states 
-  and controlling the simulation. (And painting it.)
+We're not going to go quite that far - this is only your second assignment in the unit. However, we are going to try
+to separate our functional code from our imperative code somewhat. And we're going to try to make the "important"
+code functional (and more testable).
 
-This year, the simulation is *boids*.
+We're going to do a simulation where:
+
+* The core logic of the simulation (the current frame, and the "frame memory" storing previously calculated frames) is
+  written functionally.
+* The UI and a SimulationController class are written imperatively.
+
+The simulation is *boids*.
 
 ## Boids
 
@@ -46,21 +53,10 @@ simulation using a mixture of functional and imperative programming.
 
 ## Mixing functional and imperative programming
 
-Your aim is to keep your code as functional as you can, but you're going
-to be led into having a few places where there are imperative concepts too.
+* Everything in `FrameMemory`, `SimulationFrame`, and `Boid` is pure and functional
+* `SimulationController` and the UI classes are imperative.
 
-For example, your simulation is going to keep an action replay memory.
-
-This is going to require you to store past states of the simulation as 
-you've played them -- something that works well with the *current state*
-being an immutable `Seq` of immutable `Boids`. 
-
-But the memory itself uses a mutable data structure
-(I've picked `mutable.Queue`) so that it can fill over time, and reset
-when you click a button
-
-There are also various mutable properties that we're going to add to our
-simulation:
+There are also various properties that we're going to add to our simulation:
 
 * The wind
 * The ability to "startle" the boids by applying a random impulse to
@@ -85,11 +81,14 @@ Partially implemented, you have:
    
 * `Boid` -- an immutable representation of a Boid. You will need to
    work functionally to produce new sequences of `Boid`
+
+* extension methods for `Seq[Boid]` that I think will make your algorithms in `Boid` cleaner to write
+
+* `SimulationFrame`, which holds a `Seq[Boid]` but can also report various statistics on it
+
+* `FrameMemory`, which holds a memory of the last *n* frames of the simulation
    
-* `Simulation` -- a class for storing the simulation states. This
-   contains a mutable queue for the simulation memory, and some 
-   mutable variables that let you alter what happens on the next 
-   simulation step
+* `SimulationController` -- a class the UI buttons and timer can call to control and run the simulation.
 
 * `BoidsApp` -- the runnable program, that creates a window, and adds the
   `BoidsPanel` and some buttons. Note that the buttons' event handlers 
@@ -97,7 +96,7 @@ Partially implemented, you have:
   
 ## What the components need to do
 
-* The **Action Replay** button must take the simulation back to the start of 
+* The **Action Replay** button must take the simulation back to the oldest frame in  
   the memory buffer (typically one second) and let the simulation continue 
   again from there.  
   Hint: think about which end you want to insert the frame.
@@ -132,13 +131,6 @@ Partially implemented, you have:
   - Flock separation: The variance of the position of the flock. This one's a little trickier. Find the centroid of the flock
     (average the position vectors). Then for each boid, calculate the square of its distance from the centroid. Return the 
     mean of that. To test this, hit the "explosion of boids" button. It should drop to nearly zero and then grow.
-
-## Note on the provided code
-
-I've provided this code by writing a solution and then cutting back from it.
-But it's possible you might not like some parts of my code. You can delete
-and change *any code you like* -- your task is to write the simulation, not
-to retain my code.
 
 ## Marking
 

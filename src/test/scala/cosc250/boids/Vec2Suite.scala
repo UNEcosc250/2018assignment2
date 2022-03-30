@@ -1,7 +1,7 @@
 package cosc250.boids
 
 /**
-  *
+  * This code is provided.
   */
 class Vec2Suite extends munit.FunSuite {
 
