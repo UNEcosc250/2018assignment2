@@ -132,6 +132,13 @@ Partially implemented, you have:
     (average the position vectors). Then for each boid, calculate the square of its distance from the centroid. Return the 
     mean of that. To test this, hit the "explosion of boids" button. It should drop to nearly zero and then grow.
 
+## Tests
+
+There are 3 marks for writing tests of functional components in your code (2 each for `Boid`, `Seq[Boid]`, and 
+`SimulationFrame` and/or `FrameMemory`). The point of this is not to ensure broad test coverage - this is not a 
+test-driven development unit - but to give you a little experience in how making code functional and composable makes it 
+amenable to unit testing.
+
 ## Marking
 
 The marking is aimed to be able to be done quickly, with the written feedback being
@@ -139,13 +146,19 @@ more formative and open-ended.
 
 Functionality: 
 
-* The boids simulation works: 7
+* The boids simulation works: 6
 * Adding a boid by clicking the canvas works: 1
 * Wind works: 1
 * Startle works: 1
 * Regenesis works: 1 
 * Action replay works: 1
-* Mean direction, separation, and velocity works: 3 (1 each)
+* Mean direction, separation, and velocity works: 1 (together)
+
+Tests you've written:
+
+* At least 2 tests for Boid: 1
+* At least 2 tests for extension methods on Seq[Boid]: 1
+* At least 2 tests for SimulationFrame and/or FrameMemory: 1
 
 Quality: 
 
